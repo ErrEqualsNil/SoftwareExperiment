@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHTRS system</title>
+</head>
+<body>
+    <a href="submit/">
+        <button>Report Pothole</button>
+    </a>
+    <a href="/">
+        <button>Admin</button>
+    </a>
+    <ul>
+        <table border="1">
+            <tr>
+                <th>Street Address</th>
+                <th>Size</th>
+                <th>Location</th>
+                <th>District</th>
+            </tr>
+            {% for pothole in potholes %}
+                <tr>
+                    <th>{{ pothole.street_address }}</th>
+                    <th>{{ pothole.size }}</th>
+                    <th>{{ pothole.location }}</th>
+                    <th>{{ pothole.district }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </ul>
+</body>
+</html>
