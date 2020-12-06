@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="modify" method="post">
+        {% csrf_token %}
+        <p>street address <input type="text" name="street_address"></p>
+        <p>status
+            <select name="status">
+                <option value="waiting">waiting</option>
+                <option value="repairing">repairing</option>
+                <option value="finish">finish</option>
+            </select>
+        </p>
+        <button type="submit">提交</button>
+    </form>
+
+</body>
+</html>
