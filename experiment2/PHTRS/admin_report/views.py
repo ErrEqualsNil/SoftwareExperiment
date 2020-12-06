@@ -4,12 +4,14 @@ from django.db.models import Q
 from random import randint
 # Create your views here.
 
+
 def admin_page_render(request):
-    return render(request, "admin_page.html")
+    workorders = WorkOrder.objects.all()
+    return render(request, "admin_page.html", {"workorders": workorders})
 
 def modify(request):
-    street_address = request.POST.get('street_address')
-    status = request.POST.get('status')
-    pothole = Potholes.objects.get(street_address = street_address)
-    WorkOrder.objects.filter(pothole_id = pothole.id).update(status = status)
-    return HttpResponseRedirect('/')
+    work_order_id = request.GET.get('id')
+    status = request.GET.get('status')
+    work_order = WorkOrder.objects.filter(id=work_order_id)
+    work_order.update(status=status)
+    return HttpResponseRedirect('/admini')

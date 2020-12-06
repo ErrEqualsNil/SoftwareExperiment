@@ -5,9 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="modify" method="post">
-        {% csrf_token %}
-        <p>street address <input type="text" name="street_address"></p>
+    <form action="modify" method="get">
+        <p>Work Order ID <input type="text" name="id"></p>
         <p>status
             <select name="status">
                 <option value="waiting">waiting</option>
@@ -17,6 +16,27 @@
         </p>
         <button type="submit">提交</button>
     </form>
-
+    <table border="1">
+        <tr>
+            <th>Work Order ID</th>
+            <th>Pothole Street Address</th>
+            <th>Pothole Size</th>
+            <th>Pothole Location</th>
+            <th>Pothole Repair Priority</th>
+            <th>Number of Pothole Repair Crew</th>
+            <th>Pothole Status</th>
+        </tr>
+        {% for workorder in workorders %}
+            <tr>
+                <th>{{ workorder.id }}</th>
+                <th>{{ workorder.pothole.street_address }}</th>
+                <th>{{ workorder.pothole.size }}</th>
+                <th>{{ workorder.pothole.location }}</th>
+                <th>{{ workorder.pothole.repair_priority }}</th>
+                <th>{{ workorder.repair_crew.num_of_people }}</th>
+                <th>{{ workorder.status }}</th>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
