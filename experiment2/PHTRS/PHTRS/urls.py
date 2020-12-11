@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("main_page.urls")),  # 主页
     path('submit/', include("submit_report.urls")),
-    path('admini/', include("admin_report.urls"))
+    path('admini/', include("admin_report.urls")),
 ]

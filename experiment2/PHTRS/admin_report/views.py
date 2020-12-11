@@ -1,17 +1,41 @@
 from django.shortcuts import render, HttpResponseRedirect
-from models.models import Potholes, WorkOrder, DamageFile, RepairCrew, Equipment
+from models.models import Potholes, WorkOrder
 from django.db.models import Q
 from random import randint
+
+
 # Create your views here.
 
 
+def get_repair_crew_numbers(work_order):
+    repair_crews = work_order.repair_crew
+    if repair_crews == None:
+        return 0
+    return repair_crews.num_of_people
+
+
 def admin_page_render(request):
-    workorders = WorkOrder.objects.all()
-    return render(request, "admin_page.html", {"workorders": workorders})
+    work_orders = WorkOrder.objects.all()
+    data = []
+    for work_order in work_orders:
+        num_people = get_repair_crew_numbers(work_order)
+        data.append({
+            "work_order": work_order,
+            "num_people": num_people,
+        })
+    return render(request, "admin_page.html", {"work_orders": data})
+
 
 def modify(request):
     work_order_id = request.GET.get('id')
     status = request.GET.get('status')
-    work_order = WorkOrder.objects.filter(id=work_order_id)
-    work_order.update(status=status)
+    work_order = WorkOrder.objects.filter(id=work_order_id)[0]
+    if status == "finish":
+        if work_order.repair_crew:
+            work_order.repair_crew.isBusy = False
+    else:
+        if work_order.repair_crew:
+            work_order.repair_crew.isBusy = True
+    work_order.status = status
+    work_order.save()
     return HttpResponseRedirect('/admini')

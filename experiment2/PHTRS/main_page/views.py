@@ -5,11 +5,12 @@ from django.db.models import Q
 
 
 def main_page_render(request):
-    if 'HTTP_X_FORWARDED_FOR' in request.META:
-        ip = request.META['HTTP_X_FORWARDED_FOR']
-    else:
-        ip = request.META['REMOTE_ADDR']
-    print(ip)
-    data = WorkOrder.objects.all().filter(~Q(status="finish"))
-    data = [i.pothole for i in data]
+    potholes = Potholes.objects.all()
+    data = [{
+        'street_address': pothole.street_address,
+        'size': pothole.size,
+        'location': pothole.location,
+        'district': pothole.district,
+        'status': WorkOrder.objects.filter(pothole=pothole)[0].status
+    } for pothole in potholes]
     return render(request, "main_page.html", {'potholes': data})

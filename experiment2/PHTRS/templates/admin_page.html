@@ -23,18 +23,18 @@
             <th>Pothole Size</th>
             <th>Pothole Location</th>
             <th>Pothole Repair Priority</th>
-            <th>Number of Pothole Repair Crew</th>
+            <th>Total Number of Pothole Repair Crew</th>
             <th>Pothole Status</th>
         </tr>
-        {% for workorder in workorders %}
+        {% for workorder in work_orders %}
             <tr>
-                <th>{{ workorder.id }}</th>
-                <th>{{ workorder.pothole.street_address }}</th>
-                <th>{{ workorder.pothole.size }}</th>
-                <th>{{ workorder.pothole.location }}</th>
-                <th>{{ workorder.pothole.repair_priority }}</th>
-                <th>{{ workorder.repair_crew.num_of_people }}</th>
-                <th>{{ workorder.status }}</th>
+                <th>{{ workorder.work_order.id }}</th>
+                <th>{{ workorder.work_order.pothole.street_address }}</th>
+                <th>{{ workorder.work_order.pothole.size }}</th>
+                <th>{{ workorder.work_order.pothole.location }}</th>
+                <th>{{ workorder.work_order.pothole.repair_priority }}</th>
+                <th>{{ workorder.num_people }}</th>
+                <th>{{ workorder.work_order.status }}</th>
             </tr>
         {% endfor %}
     </table>
