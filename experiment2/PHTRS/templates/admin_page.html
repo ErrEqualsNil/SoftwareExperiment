@@ -25,6 +25,7 @@
             <th>Pothole Repair Priority</th>
             <th>Number of Pothole Repair Crew</th>
             <th>Pothole Status</th>
+            <th>Cost</th>
         </tr>
         {% for workorder in workorders %}
             <tr>
@@ -35,6 +36,7 @@
                 <th>{{ workorder.pothole.repair_priority }}</th>
                 <th>{{ workorder.repair_crew.num_of_people }}</th>
                 <th>{{ workorder.status }}</th>
+                <th>{{ workorder.cost }}</th>
             </tr>
         {% endfor %}
     </table>

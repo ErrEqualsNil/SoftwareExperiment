@@ -21,9 +21,11 @@ def process_submit(request):
                                       district=district, repair_priority=size)
     repaircrews = RepairCrew.objects.all()
     equipments = Equipment.objects.all()
-    workOrder = WorkOrder.objects.create(pothole=pothole, repair_crew=repaircrews[randint(0, len(repaircrews) - 1)],
+    seleced_repair_crew = repaircrews[randint(0, len(repaircrews) - 1)]
+    workOrder = WorkOrder.objects.create(pothole=pothole, repair_crew=seleced_repair_crew,
                                          equipment_assigned=equipments[randint(0, len(equipments) - 1)],
-                                         hours_applied=11 - pothole.repair_priority, status="waiting")
+                                         hours_applied=11 - pothole.repair_priority, status="waiting",
+                                         cost=pothole.size * seleced_repair_crew.num_of_people * (11 - pothole.repair_priority))
     damage_file = DamageFile.objects.create(pothole=pothole, citizen_name=citizen_name, citizen_address=citizen_address,
                                             citizen_phone_number=citizen_phone_number)
     return HttpResponseRedirect('/')
