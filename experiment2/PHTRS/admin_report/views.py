@@ -30,12 +30,6 @@ def modify(request):
     work_order_id = request.GET.get('id')
     status = request.GET.get('status')
     work_order = WorkOrder.objects.filter(id=work_order_id)[0]
-    if status == "finish":
-        if work_order.repair_crew:
-            work_order.repair_crew.isBusy = False
-    else:
-        if work_order.repair_crew:
-            work_order.repair_crew.isBusy = True
     work_order.status = status
     work_order.save()
     return HttpResponseRedirect('/admini')

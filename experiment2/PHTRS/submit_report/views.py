@@ -47,7 +47,7 @@ def process_submit(request):
     if selected_repair_crew != -1:
         selected_repair_crew.isBusy = True
         WorkOrder.objects.create(pothole=pothole, repair_crew=selected_repair_crew,
-                                 hours_applied=calculate_hours(pothole, selected_repair_crew), status="waiting")
+                                 hours_applied=1, status="waiting")
     else:
         WorkOrder.objects.create(pothole=pothole, status="waiting")
     ReportFile.objects.create(pothole=pothole, citizen_name=citizen_name, citizen_address=citizen_address,
